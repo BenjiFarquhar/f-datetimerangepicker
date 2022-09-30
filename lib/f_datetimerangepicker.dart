@@ -164,10 +164,10 @@ class _PickerWidgetState extends State<PickerWidget>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.green,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Colors.blue,
+          backgroundColor: Colors.green,
           title: Container(
             child: TabBar(
               controller: _tabController,
