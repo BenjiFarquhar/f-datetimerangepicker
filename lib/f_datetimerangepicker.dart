@@ -1,13 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 typedef PickerConfirmCallback = void Function(DateTime start, DateTime end);
-
-enum DateTimeRangePickerMode {
-  time,
-  date,
-  dateAndTime,
-}
 
 class DateTimeRangePicker {
   final startText;
@@ -120,6 +114,12 @@ class DateTimeRangePicker {
   }
 }
 
+enum DateTimeRangePickerMode {
+  time,
+  date,
+  dateAndTime,
+}
+
 class PickerWidget extends StatefulWidget {
   final List<Tab> _tabs;
   final int _interval;
@@ -162,27 +162,12 @@ class _PickerWidgetState extends State<PickerWidget>
   DateTime? _end;
 
   @override
-  void initState() {
-    super.initState();
-    _start = widget._initStart;
-    _end = widget._initEnd;
-
-    _tabController = TabController(vsync: this, length: widget._tabs.length);
-  }
-
-  @override
-  void dispose() {
-    _tabController?.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blue,
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.blue,
           title: Container(
             child: TabBar(
               controller: _tabController,
@@ -256,5 +241,20 @@ class _PickerWidgetState extends State<PickerWidget>
             )
           ],
         ));
+  }
+
+  @override
+  void dispose() {
+    _tabController?.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _start = widget._initStart;
+    _end = widget._initEnd;
+
+    _tabController = TabController(vsync: this, length: widget._tabs.length);
   }
 }
