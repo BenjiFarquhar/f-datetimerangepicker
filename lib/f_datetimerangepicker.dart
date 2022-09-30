@@ -15,6 +15,7 @@ class DateTimeRangePicker {
   DateTime? initialEndTime;
   DateTime? minimumTime;
   DateTime? maximumTime;
+  final ThemeData theme;
 
   final VoidCallback? onCancel;
   final PickerConfirmCallback? onConfirm;
@@ -23,6 +24,7 @@ class DateTimeRangePicker {
 
   DateTimeRangePicker({
     Key? key,
+    required this.theme,
     this.startText = "Start",
     this.endText = "End",
     this.doneText = "Done",
@@ -94,21 +96,24 @@ class DateTimeRangePicker {
           return FractionallySizedBox(
             widthFactor: 0.8,
             heightFactor: 0.5,
-            child: PickerWidget([
-              Tab(text: startText),
-              Tab(text: endText),
-            ],
-                initialStartTime!,
-                initialEndTime!,
-                interval,
-                this.onCancel,
-                this.onConfirm,
-                pickerMode,
-                this.doneText,
-                this.cancelText,
-                this.minimumTime!,
-                this.maximumTime!,
-                this.use24hFormat),
+            child: PickerWidget(
+              [
+                Tab(text: startText),
+                Tab(text: endText),
+              ],
+              initialStartTime!,
+              initialEndTime!,
+              interval,
+              this.onCancel,
+              this.onConfirm,
+              pickerMode,
+              this.doneText,
+              this.cancelText,
+              this.minimumTime!,
+              this.maximumTime!,
+              this.use24hFormat,
+              theme: theme,
+            ),
           );
         });
   }
@@ -135,6 +140,7 @@ class PickerWidget extends StatefulWidget {
   final DateTime _minimumTime;
   final DateTime _maximumTime;
   final bool _use24hFormat;
+  final ThemeData theme;
 
   PickerWidget(
       this._tabs,
@@ -149,7 +155,8 @@ class PickerWidget extends StatefulWidget {
       this._minimumTime,
       this._maximumTime,
       this._use24hFormat,
-      {Key? key})
+      {Key? key,
+      required this.theme})
       : super(key: key);
 
   _PickerWidgetState createState() => _PickerWidgetState();
@@ -163,84 +170,84 @@ class _PickerWidgetState extends State<PickerWidget>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.green,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          backgroundColor: Colors.green,
-          title: Container(
-            child: TabBar(
-              controller: _tabController,
-              tabs: widget._tabs,
-              labelColor: Theme.of(context).primaryColor,
-            ),
-          ),
-        ),
-        body: Stack(
-          children: <Widget>[
-            Container(
-              height: 320,
-              alignment: Alignment.topCenter,
-              child: TabBarView(
-                controller: _tabController,
-                children: widget._tabs.map((Tab tab) {
-                  return CupertinoDatePicker(
-                    mode: widget._mode,
-                    use24hFormat: widget._use24hFormat,
-                    minuteInterval: widget._interval,
-                    minimumDate: widget._minimumTime != null &&
-                            tab.text == widget._tabs.first.text
-                        ? widget._minimumTime
-                        : null,
-                    maximumDate: widget._maximumTime != null &&
-                            tab.text == widget._tabs.last.text
-                        ? widget._maximumTime
-                        : null,
-                    initialDateTime:
-                        tab.text == widget._tabs.first.text ? _start : _end,
-                    onDateTimeChanged: (DateTime newDateTime) {
-                      if (tab.text == widget._tabs.first.text) {
-                        setState(() {
-                          _start = newDateTime;
-                        });
-                      } else {
-                        setState(() {
-                          _end = newDateTime;
-                        });
-                      }
-                    },
-                  );
-                }).toList(),
+    return Theme(
+        data: widget.theme,
+        child: Scaffold(
+            appBar: AppBar(
+              automaticallyImplyLeading: false,
+              title: Container(
+                child: TabBar(
+                  controller: _tabController,
+                  tabs: widget._tabs,
+                  labelColor: Theme.of(context).primaryColor,
+                ),
               ),
             ),
-            Container(
-              alignment: Alignment.bottomCenter,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      if (widget._onCancel != null) {
-                        widget._onCancel!();
-                      }
-                    },
-                    child: Text(widget._cancelText),
+            body: Stack(
+              children: <Widget>[
+                Container(
+                  height: 320,
+                  alignment: Alignment.topCenter,
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: widget._tabs.map((Tab tab) {
+                      return CupertinoDatePicker(
+                        mode: widget._mode,
+                        use24hFormat: widget._use24hFormat,
+                        minuteInterval: widget._interval,
+                        minimumDate: widget._minimumTime != null &&
+                                tab.text == widget._tabs.first.text
+                            ? widget._minimumTime
+                            : null,
+                        maximumDate: widget._maximumTime != null &&
+                                tab.text == widget._tabs.last.text
+                            ? widget._maximumTime
+                            : null,
+                        initialDateTime:
+                            tab.text == widget._tabs.first.text ? _start : _end,
+                        onDateTimeChanged: (DateTime newDateTime) {
+                          if (tab.text == widget._tabs.first.text) {
+                            setState(() {
+                              _start = newDateTime;
+                            });
+                          } else {
+                            setState(() {
+                              _end = newDateTime;
+                            });
+                          }
+                        },
+                      );
+                    }).toList(),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                      if (widget._onConfirm != null) {
-                        widget._onConfirm!(_start!, _end!);
-                      }
-                    },
-                    child: Text(widget._doneText),
-                  )
-                ],
-              ),
-            )
-          ],
-        ));
+                ),
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          if (widget._onCancel != null) {
+                            widget._onCancel!();
+                          }
+                        },
+                        child: Text(widget._cancelText),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          if (widget._onConfirm != null) {
+                            widget._onConfirm!(_start!, _end!);
+                          }
+                        },
+                        child: Text(widget._doneText),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            )));
   }
 
   @override
