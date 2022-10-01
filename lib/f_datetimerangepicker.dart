@@ -240,6 +240,7 @@ class _PickerWidgetState extends State<PickerWidget>
                   ),
                 ),
                 Container(
+                  padding: EdgeInsets.only(top: 20),
                   alignment: Alignment.bottomCenter,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
