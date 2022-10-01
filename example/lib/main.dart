@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:f_datetimerangepicker/f_datetimerangepicker.dart';
+import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 
@@ -27,8 +27,6 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title = "Example"}) : super(key: key);
-
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
   // how it looks.
@@ -39,6 +37,8 @@ class MyHomePage extends StatefulWidget {
   // always marked "final".
 
   final String title;
+
+  MyHomePage({Key? key, this.title = "Example"}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -59,6 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text("Open"),
               onPressed: () {
                 DateTimeRangePicker(
+                    theme: ThemeData(),
+                    width: 300,
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
                     startText: "From",
                     endText: "To",
                     doneText: "Yes",

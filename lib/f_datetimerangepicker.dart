@@ -17,6 +17,7 @@ class DateTimeRangePicker {
   DateTime? maximumTime;
   final ThemeData theme;
   final BorderRadius borderRadius;
+  final double width;
 
   final VoidCallback? onCancel;
   final PickerConfirmCallback? onConfirm;
@@ -26,6 +27,7 @@ class DateTimeRangePicker {
   DateTimeRangePicker({
     Key? key,
     required this.theme,
+    required this.width,
     required this.borderRadius,
     this.startText = "Start",
     this.endText = "End",
@@ -95,34 +97,38 @@ class DateTimeRangePicker {
     showDialog(
         context: context,
         builder: (BuildContext context) {
-          return FractionallySizedBox(
-              widthFactor: 0.8,
-              heightFactor: 0.5,
-              child: Container(
-                clipBehavior: Clip.hardEdge,
-                decoration: BoxDecoration(
-                  borderRadius: borderRadius,
-                ),
-                child: PickerWidget(
-                  [
-                    Tab(text: startText),
-                    Tab(text: endText),
-                  ],
-                  initialStartTime!,
-                  initialEndTime!,
-                  interval,
-                  this.onCancel,
-                  this.onConfirm,
-                  pickerMode,
-                  this.doneText,
-                  this.cancelText,
-                  this.minimumTime!,
-                  this.maximumTime!,
-                  this.use24hFormat,
-                  theme: theme,
-                  borderRadius: borderRadius,
-                ),
-              ));
+          return Center(
+              child: SizedBox(
+            width: width,
+            child: FractionallySizedBox(
+                widthFactor: 0.8,
+                heightFactor: 0.5,
+                child: Container(
+                  clipBehavior: Clip.hardEdge,
+                  decoration: BoxDecoration(
+                    borderRadius: borderRadius,
+                  ),
+                  child: PickerWidget(
+                    [
+                      Tab(text: startText),
+                      Tab(text: endText),
+                    ],
+                    initialStartTime!,
+                    initialEndTime!,
+                    interval,
+                    this.onCancel,
+                    this.onConfirm,
+                    pickerMode,
+                    this.doneText,
+                    this.cancelText,
+                    this.minimumTime!,
+                    this.maximumTime!,
+                    this.use24hFormat,
+                    theme: theme,
+                    borderRadius: borderRadius,
+                  ),
+                )),
+          ));
         });
   }
 }
