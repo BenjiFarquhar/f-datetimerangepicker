@@ -60,7 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 DateTimeRangePicker(
                     theme: ThemeData(),
-                    width: 300,
                     borderRadius: BorderRadius.all(Radius.circular(20)),
                     startText: "From",
                     endText: "To",

@@ -17,7 +17,7 @@ class DateTimeRangePicker {
   DateTime? maximumTime;
   final ThemeData theme;
   final BorderRadius borderRadius;
-  final double width;
+  final double? width;
 
   final VoidCallback? onCancel;
   final PickerConfirmCallback? onConfirm;
@@ -27,7 +27,7 @@ class DateTimeRangePicker {
   DateTimeRangePicker({
     Key? key,
     required this.theme,
-    required this.width,
+    this.width,
     required this.borderRadius,
     this.startText = "Start",
     this.endText = "End",
