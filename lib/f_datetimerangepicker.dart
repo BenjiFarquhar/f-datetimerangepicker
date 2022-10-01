@@ -211,7 +211,7 @@ class _PickerWidgetState extends State<PickerWidget>
                     controller: _tabController,
                     children: widget._tabs.map((Tab tab) {
                       return Padding(
-                        padding: const EdgeInsets.only(bottom: 20.0),
+                        padding: const EdgeInsets.only(bottom: 30.0),
                         child: CupertinoDatePicker(
                           mode: widget._mode,
                           use24hFormat: widget._use24hFormat,
