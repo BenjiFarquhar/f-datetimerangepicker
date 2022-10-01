@@ -96,28 +96,33 @@ class DateTimeRangePicker {
         context: context,
         builder: (BuildContext context) {
           return FractionallySizedBox(
-            widthFactor: 0.8,
-            heightFactor: 0.5,
-            child: PickerWidget(
-              [
-                Tab(text: startText),
-                Tab(text: endText),
-              ],
-              initialStartTime!,
-              initialEndTime!,
-              interval,
-              this.onCancel,
-              this.onConfirm,
-              pickerMode,
-              this.doneText,
-              this.cancelText,
-              this.minimumTime!,
-              this.maximumTime!,
-              this.use24hFormat,
-              theme: theme,
-              borderRadius: borderRadius,
-            ),
-          );
+              widthFactor: 0.8,
+              heightFactor: 0.5,
+              child: Container(
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                  borderRadius: borderRadius,
+                ),
+                child: PickerWidget(
+                  [
+                    Tab(text: startText),
+                    Tab(text: endText),
+                  ],
+                  initialStartTime!,
+                  initialEndTime!,
+                  interval,
+                  this.onCancel,
+                  this.onConfirm,
+                  pickerMode,
+                  this.doneText,
+                  this.cancelText,
+                  this.minimumTime!,
+                  this.maximumTime!,
+                  this.use24hFormat,
+                  theme: theme,
+                  borderRadius: borderRadius,
+                ),
+              ));
         });
   }
 }
