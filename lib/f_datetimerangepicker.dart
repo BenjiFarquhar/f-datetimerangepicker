@@ -190,6 +190,8 @@ class _PickerWidgetState extends State<PickerWidget>
         data: widget.theme,
         child: Scaffold(
             appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
               automaticallyImplyLeading: false,
               title: Container(
                 decoration: BoxDecoration(borderRadius: widget.borderRadius),
