@@ -16,6 +16,7 @@ class DateTimeRangePicker {
   DateTime? minimumTime;
   DateTime? maximumTime;
   final ThemeData theme;
+  final BorderRadius borderRadius;
 
   final VoidCallback? onCancel;
   final PickerConfirmCallback? onConfirm;
@@ -25,6 +26,7 @@ class DateTimeRangePicker {
   DateTimeRangePicker({
     Key? key,
     required this.theme,
+    required this.borderRadius,
     this.startText = "Start",
     this.endText = "End",
     this.doneText = "Done",
@@ -113,6 +115,7 @@ class DateTimeRangePicker {
               this.maximumTime!,
               this.use24hFormat,
               theme: theme,
+              borderRadius: borderRadius,
             ),
           );
         });
@@ -141,6 +144,7 @@ class PickerWidget extends StatefulWidget {
   final DateTime _maximumTime;
   final bool _use24hFormat;
   final ThemeData theme;
+  final BorderRadius borderRadius;
 
   PickerWidget(
       this._tabs,
@@ -156,7 +160,8 @@ class PickerWidget extends StatefulWidget {
       this._maximumTime,
       this._use24hFormat,
       {Key? key,
-      required this.theme})
+      required this.theme,
+      required this.borderRadius})
       : super(key: key);
 
   _PickerWidgetState createState() => _PickerWidgetState();
@@ -176,6 +181,7 @@ class _PickerWidgetState extends State<PickerWidget>
             appBar: AppBar(
               automaticallyImplyLeading: false,
               title: Container(
+                decoration: BoxDecoration(borderRadius: widget.borderRadius),
                 child: TabBar(
                   controller: _tabController,
                   tabs: widget._tabs,
