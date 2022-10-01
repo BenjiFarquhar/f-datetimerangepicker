@@ -210,31 +210,35 @@ class _PickerWidgetState extends State<PickerWidget>
                   child: TabBarView(
                     controller: _tabController,
                     children: widget._tabs.map((Tab tab) {
-                      return CupertinoDatePicker(
-                        mode: widget._mode,
-                        use24hFormat: widget._use24hFormat,
-                        minuteInterval: widget._interval,
-                        minimumDate: widget._minimumTime != null &&
-                                tab.text == widget._tabs.first.text
-                            ? widget._minimumTime
-                            : null,
-                        maximumDate: widget._maximumTime != null &&
-                                tab.text == widget._tabs.last.text
-                            ? widget._maximumTime
-                            : null,
-                        initialDateTime:
-                            tab.text == widget._tabs.first.text ? _start : _end,
-                        onDateTimeChanged: (DateTime newDateTime) {
-                          if (tab.text == widget._tabs.first.text) {
-                            setState(() {
-                              _start = newDateTime;
-                            });
-                          } else {
-                            setState(() {
-                              _end = newDateTime;
-                            });
-                          }
-                        },
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 20.0),
+                        child: CupertinoDatePicker(
+                          mode: widget._mode,
+                          use24hFormat: widget._use24hFormat,
+                          minuteInterval: widget._interval,
+                          minimumDate: widget._minimumTime != null &&
+                                  tab.text == widget._tabs.first.text
+                              ? widget._minimumTime
+                              : null,
+                          maximumDate: widget._maximumTime != null &&
+                                  tab.text == widget._tabs.last.text
+                              ? widget._maximumTime
+                              : null,
+                          initialDateTime: tab.text == widget._tabs.first.text
+                              ? _start
+                              : _end,
+                          onDateTimeChanged: (DateTime newDateTime) {
+                            if (tab.text == widget._tabs.first.text) {
+                              setState(() {
+                                _start = newDateTime;
+                              });
+                            } else {
+                              setState(() {
+                                _end = newDateTime;
+                              });
+                            }
+                          },
+                        ),
                       );
                     }).toList(),
                   ),
